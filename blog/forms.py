@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+from blog import models
+from primeraentregablog.primeraentrega.blog.models import Comentario
+
 
 class articuloFormulario(forms.Form):
     titulo = forms.CharField(max_length=200)
@@ -30,5 +33,6 @@ class UserRegisterForm(UserCreationForm):
     )
 
     class Meta:
+        # acá decia models = User pero me putea porque dice que User no esta definido. Donde deberia estar definido?
         fields = ["username", "email", "password1", "password2"]
         help_texts = {k: "" for k in fields}

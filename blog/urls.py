@@ -15,6 +15,7 @@ urlpatterns = [
     path(
         "r'(?P<pk>\d+)^$'", views.ComentarioDetalle.as_view(), name="ComentarioDetail"
     ),
+    # Porque sorete no me importa estas clases desde las views!!???
     path("comentario-nuevo/", views.ComentarioCreacion.as_view(), name="ComentarioNew"),
     path("editar/<pk>", views.ComentarioUpdateView.as_view(), name="ComentarioUpdate"),
     path("borrar/<pk>", views.ComentarioDelete.as_view(), name="ComentarioDelete"),
