@@ -1,0 +1,43 @@
+{% extends 'blog/body/base.html' %}
+{% block title %}{{titulo}}{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead class="text-left font-weight-bold table-dark">
+        <tr class="text-white ">
+            <td><font size="2" face="arial">{{titulo}}</font></td>
+        </tr>
+    </thead>
+    <tbody id="tabla-datos" class="small">
+        
+        {% if filtro %}
+        <tr><td>
+        <b>Busqueda por NOMBRE </b>: {{buscando.upper}}<br>
+        </td></tr>
+        {% for p in filtro %}
+        <tr><td>
+        <p>--------------------------------------------</p>
+        <p><b>COMENTARIO : </b>{{p.comentario}}</p>
+        <p><b>NOMBRE : </b>{{p.nombre}}</p>
+        <p><b>APELLIDO : </b>{{p.apellido}}</p>
+        <p><b>EMAIL : </b>{{p.email}}</p>
+        <p><b>FECHA : </b>{{p.fecha}}</p>
+        <p><b>ESTADO : </b>{{p.estado}}</p>
+        </td></tr>
+        {% endfor %} 
+        {% elif respuesta%}  
+        <tr><td>
+            {{respuesta}}
+        </td></tr>
+        {% else %}
+        <tr><td>
+        No hay datos con ese nombre.
+        </td></tr>
+        {% endif %}
+        <tr><td colspan=2>
+        <center> <a href="{% url "Buscar" %}"><font size=1>Realizar otra busqueda</font></a>
+        </td></tr>
+    </tbody>
+
+</table>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'blog/body/base.html' %}
+{% load static %}
+{% block title %}{{titulo}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <thead class="text-left font-weight-bold table-dark">
+        <tr class="text-white ">
+            <td> <font size="2" face="arial">Buscar en articulos por nombre</font></td>
+            <td ></td>
+        </tr>
+    </thead>
+    <tbody id="tabla-datos" class="small">
+        <form action="/respuesta_buscar/" method="GET">
+            
+           
+            <tr><td><p>Ingrese nombre : </p></td><td><input type="text" name="nombre" id="nombre"></td></tr>
+           
+            <tr><td></td><td>
+                <input type="submit" value="Buscar">
+            </td></tr>
+        </form>
+     
+       
+    </tbody>
+
+</table>
+{% endblock %}

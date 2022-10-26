@@ -1,0 +1,27 @@
+{% extends 'blog/body/base.html' %}
+{% block title %}{{titulo}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <thead class="text-left font-weight-bold table-dark">
+        <tr class="text-white ">
+            <td >{{titulo}}</td>
+            <td ></td>
+        </tr>
+    </thead>
+    <tbody id="tabla-datos" class="small">
+        
+        <form action="/registro/" method="POST">{% csrf_token %}
+
+
+            {{ form.as_p }}
+
+        <tr><td></td><td>
+                <input type="submit" value="Registrarse">
+            </td></tr>
+        </form>
+    </tbody>    
+
+</table>        
+{% endblock %}

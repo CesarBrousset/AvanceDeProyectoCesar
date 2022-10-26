@@ -1,0 +1,24 @@
+{% extends 'blog/body/base.html' %}
+{% block title %}{{titulo}}{% endblock %}
+
+
+{% block content %}
+<table class="table">
+    <thead class="text-left font-weight-bold table-dark">
+        <tr class="text-white ">
+            <td >{{titulo}}</td>
+        </tr>
+    </thead>
+    <tbody id="tabla-datos" class="small">
+        
+        <ul>
+            {%for x in urls%}
+            <tr><td><li><a href="{% url x %}">{{x}}</a></li></td></tr>
+            {% endfor %}
+    
+        </ul>
+    
+    </tbody>
+
+</table>
+{% endblock %}
