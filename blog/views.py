@@ -132,7 +132,7 @@ class ClaseQueNecesitaLogin(LoginRequiredMixin):
         fields = ["comentario", "nombre", "apellido", "email", "fecha"]
 
         def get_success_url(self):
-            return reverse("Comentariolist")
+            return reverse("ComentarioList")
 
 
 class ClaseQueNecesitaLogin(LoginRequiredMixin):

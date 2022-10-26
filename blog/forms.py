@@ -1,9 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from blog import models
-from primeraentregablog.primeraentrega.blog.models import Comentario
-
 
 class articuloFormulario(forms.Form):
     titulo = forms.CharField(max_length=200)
