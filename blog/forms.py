@@ -47,3 +47,9 @@ class UserEditForm(UserCreationForm):
         # model = User
         fields = ["email", "password1", "password2"]
         help_texts = {k: "" for k in fields}
+
+#class AvatarFormulario():
+#    pass
+
+#class User():
+#    pass

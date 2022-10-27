@@ -9,8 +9,8 @@ from django.contrib.auth import login, logout, authenticate
 from blog.forms import UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
-from primeraentregablog.primeraentrega.blog.models import Avatar
+from blog.forms import User, AvatarFormulario
+from blog.models import Avatar
 
 
 # inicio
@@ -220,6 +220,7 @@ def register(request):
 
     return render(request, "registro.html", {"form": form})
 
+from blog.forms import UserEditForm
 
 @login_required
 def editarPerfil(request):
