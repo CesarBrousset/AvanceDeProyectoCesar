@@ -3,6 +3,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">BLOGCITO</a>
+        {% if not request.user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'login' %}">INICIAR</a>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+        <img src="{{(Avatar.objects.filter(user = request.user.id))[0].imagen.url)}}" />
+        <p class="text-muted small mb-4 mb-1g-0"> Hola, {{user.username}}!!!.</p>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

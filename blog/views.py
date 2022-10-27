@@ -5,19 +5,22 @@ from django.http import HttpResponse
 from blog.forms import articuloFormulario, categoriaFormulario, comentarioFormulario
 from blog.models import Articulo, Categoria, Comentario
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from blog.forms import UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+from primeraentregablog.primeraentrega.blog.models import Avatar
+
+
 # inicio
 @login_required
 def inicio(request):
+    avatares = Avatar.objects.filter(user=request.user.id)
     urls = {"Categoria", "Articulos", "Comentarios"}
     titulo = "Formularios"
     contenido = {"urls": urls, "titulo": titulo}
-    return render(request, "index.html", contenido)
+    return render(request, "index.html", contenido, {"url": avatares[0].imagen.url})
 
 
 def categoria(request):
@@ -126,7 +129,7 @@ class ComentarioDetalle(DetailView):
     template_name = "comentario_detalle.html"
 
 
-class ClaseQueNecesitaLogin(LoginRequiredMixin):
+class ClaseQueNecesitaLogin1(LoginRequiredMixin):
     class ComentarioCreacion(CreateView):
         model = Comentario
         fields = ["comentario", "nombre", "apellido", "email", "fecha"]
@@ -135,14 +138,14 @@ class ClaseQueNecesitaLogin(LoginRequiredMixin):
             return reverse("ComentarioList")
 
 
-class ClaseQueNecesitaLogin(LoginRequiredMixin):
+class ClaseQueNecesitaLogin2(LoginRequiredMixin):
     class ComentarioUpdateView(UpdateView):
         model = Comentario
         success_url = "comentario/list"
         fields = ["comentario", "nombre", "apellido", "email", "fecha"]
 
 
-class ClaseQueNecesitaLogin(LoginRequiredMixin):
+class ClaseQueNecesitaLogin3(LoginRequiredMixin):
     class ComentarioDelete(DeleteView):
 
         model = Comentario
@@ -216,3 +219,47 @@ def register(request):
         form = UserRegisterForm()
 
     return render(request, "registro.html", {"form": form})
+
+
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+
+    if request.method == "POST":
+        miFormulario = UserEditForm(request.POST)
+        if miFormulario.is_valid:
+
+            informacion = miFormulario.cleaned_data
+
+            usuario.email = informacion["email"]
+            usuario.password1 = informacion["password1"]
+            usuario.password2 = informacion["password1"]
+            usuario.save()
+
+            return render(request, "index.html")
+
+    else:
+
+        miFormulario = UserEditForm(initial={"email": usuario.email})
+
+    return render(request, "editarPerfil.html", {"miFormulario": miFormulario})
+
+
+@login_required
+def agregarAvatar(request):
+    if request.method == "POST":
+
+        miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid:
+
+            u = User.objects.get(username=request.user)
+            avatar = Avatar(user=u, imagen=miFormulario.cleaned_data["imagen"])
+            avatar.save()
+            return render(request, "index.html")
+
+    else:
+
+        miFormulario = AvatarFormulario()
+
+    return render(request, "agregarAvatar.html", {"miFormulario": miFormulario})
