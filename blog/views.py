@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required
 from blog.forms import User, AvatarFormulario
 from blog.models import Avatar
 
-
 # inicio
 @login_required
 def inicio(request):
